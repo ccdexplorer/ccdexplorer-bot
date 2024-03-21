@@ -1,0 +1,15 @@
+ccdexplorer-fundamentals
+asyncio
+python-telegram-bot[job-queue]
+requests
+pytest
+rich
+python-dateutil
+pymongo
+aiohttp
+grpcio
+python-dotenv
+grpcio-tools
+grpclib
+betterproto==2.0.0b5
+pytest-asyncio
