@@ -89,34 +89,12 @@ def read_block_information_v3(
     ### Special Events
     special_events = grpcclient.get_block_special_events(block_info.hash, NET(net))
 
-    ### Involved Accounts Transfer
-    result = db_to_use[Collections.involved_accounts_transfer].find(
-        {"block_height": block_height}
-    )
-
-    if result:
-        involved_accounts_transfer = [MongoTypeInvolvedAccount(**x) for x in result]
-    else:
-        involved_accounts_transfer = []
-
-    ### Involved Accounts Contract
-    result = db_to_use[Collections.involved_contracts].find(
-        {"block_height": block_height}
-    )
-
-    if result:
-        involved_contracts = [MongoTypeInvolvedContract(**x) for x in result]
-    else:
-        involved_contracts = []
-
     block_complete = CCD_BlockComplete(
         **{
             "block_info": block_info,
             "transaction_summaries": transaction_summaries,
             "special_events": special_events,
             "logged_events": logged_events_in_block,
-            "account_transfers": involved_accounts_transfer,
-            "involved_contracts": involved_contracts,
             "net": net,
         }
     )

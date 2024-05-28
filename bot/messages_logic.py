@@ -259,7 +259,7 @@ class Mixin(ProcessContract, ProcessAccount, ProcessValidator, ProcessOther, Uti
                     notification_to_be_sent = True
                     message_response_to_be_sent = message_response
                     console.log(f"send notification to {user.token}")
-                    self.send_to_services(
+                    await self.send_to_services(
                         user, notification_services_to_send, message_response
                     )
             if notification_to_be_sent and message_response_to_be_sent:
@@ -347,7 +347,7 @@ class Mixin(ProcessContract, ProcessAccount, ProcessValidator, ProcessOther, Uti
         # services...
         return message_response, notification_services_to_send
 
-    def send_to_services(
+    async def send_to_services(
         self,
         user: UserV2,
         notification_services_to_send: dict[NotificationServices:bool],
@@ -357,7 +357,7 @@ class Mixin(ProcessContract, ProcessAccount, ProcessValidator, ProcessOther, Uti
             notification_services_to_send[NotificationServices.telegram]
             and user.telegram_chat_id
         ):
-            self.connections.tooter.relay(
+            await self.connections.tooter.async_relay(
                 channel=TooterChannel.BOT,
                 title=message_response.title_telegram,
                 chat_id=user.telegram_chat_id,
