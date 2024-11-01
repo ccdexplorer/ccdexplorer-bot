@@ -112,7 +112,8 @@ SEND_MESSAGES = True
 async def test_message_payday_pool_reweard_72723(
     bot: Bot, grpcclient: GRPCClient, mongodb: MongoDB
 ):
-    block = read_block_information_v3(10471185, 0, grpcclient, mongodb)
+    # block = read_block_information_v3(10471185, 0, grpcclient, mongodb)
+    block = read_block_information_v3(22988438, 0, grpcclient, mongodb)
     await bot.find_events_in_block_special_events(block)
     for event in bot.event_queue:
         if event.impacted_addresses[0].address.account.index == 72723:
